@@ -8,9 +8,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Exercise01 {
-    public static void main(String[] args) throws ParseException {
-        final int TEAM_SIZE = 11;
+    static final int TEAM_SIZE = 11;
 
+    public static void main(String[] args) throws ParseException {
         Jogador[] team = new Jogador[TEAM_SIZE];
 
         Scanner scanner = new Scanner(System.in);
@@ -29,7 +29,6 @@ public class Exercise01 {
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             System.out.print("data de nascimento: ");
             Date birthdate = format.parse(scanner.nextLine());
-            // LocalDate birthdate = LocalDate.parse(scanner.nextLine());
 
             System.out.print("número: ");
             int number = scanner.nextInt();
@@ -50,7 +49,8 @@ public class Exercise01 {
             System.out.print("encontra-se suspenso: ");
             Boolean isSuspended = scanner.nextBoolean();
 
-            team[i] = new Jogador(idCode, name, nickname, birthdate, number, position, ability, numberOfYellowCards, numberOfRedCards, isSuspended);
+            team[i] = new Jogador(idCode, name, nickname, birthdate, number, position,
+                                  ability, numberOfYellowCards, numberOfRedCards, isSuspended);
         }
 
         for (int i = 0; i < TEAM_SIZE; i++) {
