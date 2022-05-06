@@ -1,41 +1,163 @@
 package lista_de_exercícios1;
 
-import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Random;
+import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Exercise01 {
-    public static void main(String[] args) {
-        Funcionario novoFuncionario = new Funcionario("Luis", "Silva", 10, 25.50);
+    public static void main(String[] args) throws ParseException {
+        final int TEAM_SIZE = 11;
 
-        novoFuncionario.nomeCompleto();
+        Jogador[] team = new Jogador[TEAM_SIZE];
 
-        novoFuncionario.calcularSalario();
+        Scanner scanner = new Scanner(System.in);
+
+        for (int i = 0; i < TEAM_SIZE; i++) {
+            System.out.print("código de identificação: ");
+            int idCode = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.print("nome: ");
+            String name = scanner.nextLine();
+
+            System.out.print("apelido: ");
+            String nickname = scanner.nextLine();
+
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            System.out.print("data de nascimento: ");
+            Date birthdate = format.parse(scanner.nextLine());
+            // LocalDate birthdate = LocalDate.parse(scanner.nextLine());
+
+            System.out.print("número: ");
+            int number = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.print("posição: ");
+            String position = scanner.nextLine();
+
+            System.out.print("grau de habilidade: ");
+            int ability = scanner.nextInt();
+
+            System.out.print("número de cartões amarelos recebidos: ");
+            int numberOfYellowCards = scanner.nextInt();
+
+            System.out.print("número de cartões vermelhos recebidos: ");
+            int numberOfRedCards = scanner.nextInt();
+
+            System.out.print("encontra-se suspenso: ");
+            Boolean isSuspended = scanner.nextBoolean();
+
+            team[i] = new Jogador(idCode, name, nickname, birthdate, number, position, ability, numberOfYellowCards, numberOfRedCards, isSuspended);
+        }
+
+        for (int i = 0; i < TEAM_SIZE; i++) {
+            System.out.println(team[i]);
+        }
     }
 }
 
-class Funcionario {
+class Jogador {
+    private int id;
     private String nome;
-    private String sobrenome;
-    private Integer horasTrabalhadas;
-    private double valorPorHora;
+    private String apelido;
+    private Date dataNascimento;
+    private int numero;
+    private String posicao;
+    private int qualidade;
+    private int cartoesAmarelos;
+    private int cartaoVermelho;
+    private Boolean suspenso;
+    private boolean trainedYet;
 
-    Funcionario(String nome, String sobrenome, Integer horasTrabalhadas, double valorPorHora) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.horasTrabalhadas = horasTrabalhadas;
-        this.valorPorHora = valorPorHora;
+    Jogador(int idCode, String name, String nickname, Date birthdate, int number, String position,
+            int ability, int numberOfYellowCards, int numberOfRedCards, Boolean isSuspended) {
+        this.id = idCode;
+        this.nome = name;
+        this.apelido = nickname;
+        this.dataNascimento = birthdate;
+        this.numero = number;
+        this.posicao = position;
+        this.qualidade = ability;
+        this.cartoesAmarelos = numberOfYellowCards;
+        this.cartaoVermelho = numberOfRedCards;
+        this.suspenso = isSuspended;
     }
 
-    void nomeCompleto() {
-        System.out.println(this.nome + this.sobrenome);
+    boolean verificarCondicaoDeJogo() {
+        return !this.suspenso;
     }
 
-    void calcularSalario() {
-        BigDecimal salary = BigDecimal.valueOf(this.horasTrabalhadas * this.valorPorHora);
+    @Override
+    public String toString() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String birthdate = dateFormat.format(dataNascimento);
 
-        System.out.println(salary);
+        String openingString = this.posicao + ": " + this.id + " - " + this.nome + " (" +
+                               this.apelido + ")" + " - " + birthdate + " CONDIÇÃO: ";
+
+        if (this.suspenso) {
+            return openingString + "NÃO PODE JOGAR";
+        }
+
+        return openingString + "PODE JOGAR";
     }
 
-    void incrementarHoras(BigDecimal raise) {
-        this.valorPorHora = BigDecimal.valueOf(this.valorPorHora).add(raise).doubleValue();
+    void aplicarCartaoAmarelo(int quantidade) {
+        final int NUMBER_OF_YELLOW_CARDS_TO_BE_SUSPENDED = 3;
+
+        this.cartoesAmarelos += quantidade;
+
+        if (this.cartoesAmarelos >= NUMBER_OF_YELLOW_CARDS_TO_BE_SUSPENDED) {
+            this.suspenso = true;
+        }
+    }
+
+    void aplicarCartaoVermelho() {
+        this.cartaoVermelho++;
+
+        this.suspenso = true;
+    }
+
+    void cumprirSuspensao() {
+        this.cartaoVermelho = 0;
+        this.cartoesAmarelos = 0;
+        this.suspenso = false;
+    }
+
+    void sofrerLesao() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(100);
+
+        if (randomNumber < 5) {
+            this.qualidade = (int) Math.ceil(this.qualidade * 0.85);
+        } else if (randomNumber < 15) {
+            this.qualidade *= 0.90;
+        } else if (randomNumber < 30) {
+            this.qualidade *= 0.95;
+        } else if (randomNumber < 60) {
+            this.qualidade -= 2;
+        } else {
+            this.qualidade--;
+        }
+
+        if (this.qualidade < 0) {
+            this.qualidade = 0;
+        }
+    }
+
+    void executarTreinamento() {
+        if (trainedYet) {
+            return;
+        }
+
+        this.trainedYet = true;
+
+        Random random = new Random();
+        int randomNumber = random.nextInt(3) + 1;
+
+        this.qualidade += randomNumber;
     }
 }
