@@ -1,19 +1,29 @@
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Exercise02 {
     public static void main(String[] args) {
-
         Stock stock = new Stock();
 
-        Product product = new Product();
+        Product product1 = new Product();
+        stock.addProduct(product1);
 
-        stock.addProduct(product);
+        Product product2 = new Product();
+        stock.addProduct(product2);
 
-        Product product2 = stock.findProductByIdentificationNumber(0);
+        Product product3 = new Product();
+        stock.addProduct(product3);
 
-        product2.updateProduct();
+        stock.listProducts();
 
-        System.out.println(product2);
+        Product product = stock.findProductByIdentificationNumber(2);
+
+        stock.deleteProduct(1);
+
+        stock.listProducts();
+
+//        System.out.println(product2);
     }
 }
 
@@ -55,10 +65,10 @@ class Stock {
         throw new IllegalArgumentException("produto não encontrado");
     }
 
-    void deleteProduct(int identificationNumber) {
-        for (Product product : products) {
-            if (this.identificationNumber == identificationNumber) {
-                products.remove(product);
+    void deleteProduct(int productIdentificationNumber) {
+        for (Product product : this.products) {
+            if (product.getIdentificationNumber() == productIdentificationNumber) {
+                this.products.remove(product);
 
                 break;
             }
