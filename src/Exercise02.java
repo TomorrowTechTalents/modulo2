@@ -6,18 +6,19 @@ public class Exercise02 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        List<Stock> stocks = new ArrayList<>();
+//        List<Stock> stocks = new ArrayList<>();
 
-        System.out.println("cadastre um estoque:");
+        System.out.println("cadastre um estoque");
         System.out.print("nome: ");
-        String name = scanner.nextLine();
-        Stock stock = new Stock(name);
-        stocks.add(stock);
-
+        String stockName = scanner.nextLine();
+        Stock stock = new Stock(stockName);
+//        stocks.add(stock);
+        System.out.println();
 
         while (true) {
+            System.out.println("** estoque " + stock.name + " **");
             System.out.println("escolha uma opção:");
-            System.out.println("1 - cadastrar novo estoque");
+            System.out.println("1 - renomear o estoque");
             System.out.println("2 - cadastrar novo produto");
             System.out.println("3 - ver detalhes de um produto");
             System.out.println("4 - editar dados de um produto");
@@ -30,30 +31,53 @@ public class Exercise02 {
 
             switch (option) {
                 case 1:
-                    System.out.print("nome: ");
-                    String newStockName = scanner.nextLine();
-                    Stock newStock = new Stock(newStockName);
-                    stocks.add(newStock);
-                    System.out.println("Estoque cadastrado com sucesso.");
+                    System.out.print("novo nome: ");
+                    stock.name = scanner.nextLine();
+//                    String newStockName = scanner.nextLine();
+//                    Stock newStock = new Stock(newStockName);
+//                    stocks.add(newStock);
+                    System.out.println("Estoque renomeado com sucesso.");
                     break;
                 case 2:
-                    Product productToAdd = new Product("name1", "seção1", "tipo1", 1, "marca1");
-                    stocks.get(0).addProduct(productToAdd);
+                    System.out.print("nome: ");
+                    String name = scanner.nextLine();
+
+                    System.out.print("seção: ");
+                    String department = scanner.nextLine();
+
+                    System.out.print("tipo: ");
+                    String type = scanner.nextLine();
+
+                    System.out.print("quantidade em estoque: ");
+                    int quantityInStock = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.print("marca: ");
+                    String brand = scanner.nextLine();
+
+                    Product productToAdd = new Product(name, department, type, quantityInStock, brand);
+                    stock.addProduct(productToAdd);
                     break;
                 case 3:
-                    Product product = stocks.get(0).findProductByIdentificationNumber(1);
+                    System.out.print("identificador do produto com dados a exibir: ");
+                    int productToCheckIdentificationNumber = scanner.nextInt();
+                    Product product = stock.findProductByIdentificationNumber(productToCheckIdentificationNumber);
                     System.out.println(product);
                     break;
                 case 4:
-                    Product productToUpdate = stocks.get(0).findProductByIdentificationNumber(1);
-                    productToUpdate.updateProduct();
+                    System.out.print("identificador do produto com dados a editar: ");
+                    int productToUpdateIdentificationNumber = scanner.nextInt();
+                    Product productToUpdate = stock.findProductByIdentificationNumber(productToUpdateIdentificationNumber);
+                    productToUpdate.updateProduct(); // juntas os dois metodos acima talvez?
                     break;
                 case 5:
-                    stocks.get(0).deleteProduct(1);
+                    System.out.print("identificador do produto a ser removido: ");
+                    int productToRemoveIdentificationNumber = scanner.nextInt();
+                    stock.deleteProduct(productToRemoveIdentificationNumber);
                     break;
                 case 6:
                     try {
-                        stocks.get(0).listProducts();
+                        stock.listProducts();
                     } catch (Exception exception) {
                         System.out.println("Ocorreu um erro. Certifique-se de ter cadastrado um estoque.");
                     }
@@ -64,6 +88,8 @@ public class Exercise02 {
                 default:
                     throw new IllegalArgumentException("opção inválida");
             }
+
+            System.out.println();
         }
     }
 }
