@@ -39,24 +39,7 @@ public class Exercise02 {
                     System.out.println("Estoque renomeado com sucesso.");
                     break;
                 case 2:
-                    System.out.print("nome: ");
-                    String name = scanner.nextLine();
-
-                    System.out.print("seção: ");
-                    String department = scanner.nextLine();
-
-                    System.out.print("tipo: ");
-                    String type = scanner.nextLine();
-
-                    System.out.print("quantidade em estoque: ");
-                    double quantityInStock = scanner.nextDouble();
-                    scanner.nextLine();
-
-                    System.out.print("marca: ");
-                    String brand = scanner.nextLine();
-
-                    Product productToAdd = new Product(name, department, type, quantityInStock, brand);
-
+                    Product productToAdd = Product.buildProductFromUserInput();
                     Product product = stock.findProductWithSameNameAndBrandAlreadyPresent(productToAdd);
 
                     if (product != null) {
@@ -184,6 +167,30 @@ class Product {
         this.identificationNumber = identificationNumberCounter;
 
         identificationNumberCounter++;
+    }
+
+    static Product buildProductFromUserInput() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("nome: ");
+        String name = scanner.nextLine();
+
+        System.out.print("seção: ");
+        String department = scanner.nextLine();
+
+        System.out.print("tipo: ");
+        String type = scanner.nextLine();
+
+        System.out.print("quantidade em estoque: ");
+        double quantityInStock = scanner.nextDouble();
+        scanner.nextLine();
+
+        System.out.print("marca: ");
+        String brand = scanner.nextLine();
+
+        Product product = new Product(name, department, type, quantityInStock, brand);
+
+        return product;
     }
 
     int getIdentificationNumber() {
