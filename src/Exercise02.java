@@ -49,20 +49,29 @@ public class Exercise02 {
                     String type = scanner.nextLine();
 
                     System.out.print("quantidade em estoque: ");
-                    int quantityInStock = scanner.nextInt();
+                    double quantityInStock = scanner.nextDouble();
                     scanner.nextLine();
 
                     System.out.print("marca: ");
                     String brand = scanner.nextLine();
 
                     Product productToAdd = new Product(name, department, type, quantityInStock, brand);
+
+                    Product product = stock.findProductWithSameNameAndBrandAlreadyPresent(productToAdd);
+
+                    if (product != null) {
+                        product.addQuantitiesInStock(productToAdd);
+
+                        break;
+                    }
+
                     stock.addProduct(productToAdd);
                     break;
                 case 3:
                     System.out.print("identificador do produto com dados a exibir: ");
                     int productToCheckIdentificationNumber = scanner.nextInt();
-                    Product product = stock.findProductByIdentificationNumber(productToCheckIdentificationNumber);
-                    System.out.println(product);
+                    Product productToCheck = stock.findProductByIdentificationNumber(productToCheckIdentificationNumber);
+                    System.out.println(productToCheck);
                     break;
                 case 4:
                     System.out.print("identificador do produto com dados a editar: ");
@@ -73,7 +82,8 @@ public class Exercise02 {
                 case 5:
                     System.out.print("identificador do produto a ser removido: ");
                     int productToRemoveIdentificationNumber = scanner.nextInt();
-                    stock.deleteProduct(productToRemoveIdentificationNumber);
+                    Product productToRemove = stock.findProductByIdentificationNumber(productToRemoveIdentificationNumber);
+                    stock.deleteProduct(productToRemove);
                     break;
                 case 6:
                     try {
@@ -107,34 +117,29 @@ class Stock {
         identificationNumberCounter++;
     }
 
-    int getIdentificationNumber() {
-        return this.identificationNumber;
-    }
+    Product findProductWithSameNameAndBrandAlreadyPresent(Product newProduct) {
+        for (Product product : this.products) {
+            if (product.haveSameNameAndBrand(newProduct)) {
+                return product;
+            }
+        }
 
-    List<?> getProducts() {
-        return products;
-    }
-
-    void setProducts() {
-        // ?
+        return null;
     }
 
     void addProduct(Product newProduct) {
-        for (Product product : this.products) {
-            boolean haveSameNameAndBrand = newProduct.getName().equals(product.getName()) &&
-                                           newProduct.getBrand().equals(product.getBrand());
+        Product product = this.findProductWithSameNameAndBrandAlreadyPresent(newProduct);
 
-            if (haveSameNameAndBrand) {
-                product.setQuantityInStock(product.getQuantityInStock() + newProduct.getQuantityInStock());
+        if (product != null) {
+            product.addQuantitiesInStock(newProduct);
 
-                return;
-            }
+            return;
         }
 
         this.products.add(newProduct);
     }
 
-    Product findProductByIdentificationNumber(int productIdentificationNumber) {
+    Product findProductByIdentificationNumber(int productIdentificationNumber) { // o que fazer?
         for (Product product : products) {
             if (product.getIdentificationNumber() == productIdentificationNumber) {
                 return product;
@@ -144,9 +149,9 @@ class Stock {
         throw new IllegalArgumentException("produto não encontrado");
     }
 
-    void deleteProduct(int productIdentificationNumber) {
+    void deleteProduct(Product productToRemove) {
         for (Product product : this.products) {
-            if (product.getIdentificationNumber() == productIdentificationNumber) {
+            if (product == productToRemove) { // equals()? Object.equals()?
                 this.products.remove(product);
 
                 break;
@@ -159,26 +164,18 @@ class Stock {
             System.out.println(product);
         }
     }
-
-    void checkProductByIdentificationNumber(int identificationNumber) {
-        for (Product product : products) {
-            if (this.identificationNumber == identificationNumber) {
-                System.out.println(product);
-            }
-        }
-    }
 }
 
 class Product {
     private String name;
     private String department;
     private String type;
-    private int quantityInStock; // maybe double for things given in kg for example?
+    private double quantityInStock;
     private String brand;
     private int identificationNumber;
     private static int identificationNumberCounter;
 
-    Product(String name, String department, String type, int quantityInStock, String brand) {
+    Product(String name, String department, String type, double quantityInStock, String brand) {
         this.name = name;
         this.department = department;
         this.type = type;
@@ -187,22 +184,6 @@ class Product {
         this.identificationNumber = identificationNumberCounter;
 
         identificationNumberCounter++;
-    }
-
-    String getName() {
-        return this.name;
-    }
-
-    int getQuantityInStock() {
-        return this.quantityInStock;
-    }
-
-    void setQuantityInStock(int quantity) {
-        this.quantityInStock = quantity;
-    }
-
-    String getBrand() {
-        return this.brand;
     }
 
     int getIdentificationNumber() {
@@ -222,11 +203,19 @@ class Product {
         this.type = scanner.nextLine();
 
         System.out.print("nova quantidade em estoque (a quantidade antiga é " + this.quantityInStock + "): ");
-        this.quantityInStock = scanner.nextInt();
+        this.quantityInStock = scanner.nextDouble();
         scanner.nextLine();
 
         System.out.print("nova marca (a marca antiga é " + this.brand + "): ");
         this.brand = scanner.nextLine();
+    }
+
+    boolean haveSameNameAndBrand(Product product) {
+        return this.name.equals(product.name) && this.brand.equals(product.brand);
+    }
+
+    void addQuantitiesInStock(Product product) {
+        this.quantityInStock += product.quantityInStock;
     }
 
     @Override
