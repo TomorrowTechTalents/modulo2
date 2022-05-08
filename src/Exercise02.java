@@ -6,13 +6,10 @@ public class Exercise02 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-//        List<Stock> stocks = new ArrayList<>();
-
         System.out.println("cadastre um estoque");
         System.out.print("nome: ");
         String stockName = scanner.nextLine();
         Stock stock = new Stock(stockName);
-//        stocks.add(stock);
         System.out.println();
 
         while (true) {
@@ -33,9 +30,6 @@ public class Exercise02 {
                 case 1:
                     System.out.print("novo nome: ");
                     stock.name = scanner.nextLine();
-//                    String newStockName = scanner.nextLine();
-//                    Stock newStock = new Stock(newStockName);
-//                    stocks.add(newStock);
                     System.out.println("Estoque renomeado com sucesso.");
                     break;
                 case 2:
@@ -52,28 +46,21 @@ public class Exercise02 {
                     break;
                 case 3:
                     System.out.print("identificador do produto com dados a exibir: ");
-                    int productToCheckIdentificationNumber = scanner.nextInt();
-                    Product productToCheck = stock.findProductByIdentificationNumber(productToCheckIdentificationNumber);
+                    Product productToCheck = stock.findProductByIdentificationNumber();
                     System.out.println(productToCheck);
                     break;
                 case 4:
                     System.out.print("identificador do produto com dados a editar: ");
-                    int productToUpdateIdentificationNumber = scanner.nextInt();
-                    Product productToUpdate = stock.findProductByIdentificationNumber(productToUpdateIdentificationNumber);
-                    productToUpdate.updateProduct(); // juntas os dois metodos acima talvez?
+                    Product productToUpdate = stock.findProductByIdentificationNumber();
+                    productToUpdate.updateProduct();
                     break;
                 case 5:
                     System.out.print("identificador do produto a ser removido: ");
-                    int productToRemoveIdentificationNumber = scanner.nextInt();
-                    Product productToRemove = stock.findProductByIdentificationNumber(productToRemoveIdentificationNumber);
+                    Product productToRemove = stock.findProductByIdentificationNumber();
                     stock.deleteProduct(productToRemove);
                     break;
                 case 6:
-                    try {
-                        stock.listProducts();
-                    } catch (Exception exception) {
-                        System.out.println("Ocorreu um erro. Certifique-se de ter cadastrado um estoque.");
-                    }
+                    stock.listProducts();
                     break;
                 case 7:
                     System.out.println("até mais");
@@ -111,19 +98,15 @@ class Stock {
     }
 
     void addProduct(Product newProduct) {
-        Product product = this.findProductWithSameNameAndBrandAlreadyPresent(newProduct);
-
-        if (product != null) {
-            product.addQuantitiesInStock(newProduct);
-
-            return;
-        }
-
         this.products.add(newProduct);
     }
 
-    Product findProductByIdentificationNumber(int productIdentificationNumber) { // o que fazer?
-        for (Product product : products) {
+    Product findProductByIdentificationNumber() { // o que fazer?
+        Scanner scanner = new Scanner(System.in);
+
+        int productIdentificationNumber = scanner.nextInt();
+
+        for (Product product : this.products) {
             if (product.getIdentificationNumber() == productIdentificationNumber) {
                 return product;
             }
@@ -143,7 +126,7 @@ class Stock {
     }
 
     void listProducts() {
-        for (Product product : products) {
+        for (Product product : this.products) {
             System.out.println(product);
         }
     }
