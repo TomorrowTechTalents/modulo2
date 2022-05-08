@@ -210,8 +210,8 @@ class Product {
 
     @Override
     public String toString() {
-        return "Produto [nome=" + this.name + ", seção=" + this.department + ", tipo=" + this.type +
-                         ", quantidade em estoque=" + this.quantityInStock + ", marca=" + this.brand +
-                         ", identificador=" + this.identificationNumber + "]";
+        return "Produto = {nome: " + this.name + ", seção: " + this.department + ", tipo: " + this.type +
+                         ", quantidade em estoque: " + this.quantityInStock + ", marca: " + this.brand +
+                         ", identificador: " + this.identificationNumber + "}";
     }
 }
