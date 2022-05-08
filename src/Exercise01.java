@@ -1,5 +1,3 @@
-package lista_de_exercícios1;
-
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;

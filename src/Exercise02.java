@@ -101,7 +101,7 @@ class Stock {
         this.products.add(newProduct);
     }
 
-    Product findProductByIdentificationNumber() { // o que fazer?
+    Product findProductByIdentificationNumber() {
         Scanner scanner = new Scanner(System.in);
 
         int productIdentificationNumber = scanner.nextInt();
