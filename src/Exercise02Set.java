@@ -2,6 +2,16 @@ import java.util.Set;
 import java.util.Scanner;
 import java.util.LinkedHashSet;
 
+enum Options {
+    RENAME_STOCK,
+    REGISTER_PRODUCT,
+    CHECK_PRODUCT,
+    UPDATE_PRODUCT,
+    DELETE_PRODUCT,
+    LIST_PRODUCTS,
+    EXIT
+}
+
 public class Exercise02Set {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -23,38 +33,38 @@ public class Exercise02Set {
             System.out.println("6 - listar produtos");
             System.out.println("7 - sair");
 
-            int option = scanner.nextInt();
+            Options option = Options.values()[scanner.nextByte() - 1];
             scanner.nextLine();
 
             switch (option) {
-                case 1:
+                case RENAME_STOCK:
                     System.out.print("novo nome: ");
                     stock.name = scanner.nextLine();
                     System.out.println("Estoque renomeado com sucesso.");
                     break;
-                case 2:
+                case REGISTER_PRODUCT:
                     ProductSet productToAdd = new ProductSet();
                     stock.addProduct(productToAdd);
                     break;
-                case 3:
+                case CHECK_PRODUCT:
                     System.out.print("identificador do produto com dados a exibir: ");
                     ProductSet productToCheck = stock.findProductByIdentificationNumber();
                     System.out.println(productToCheck);
                     break;
-                case 4:
+                case UPDATE_PRODUCT:
                     System.out.print("identificador do produto com dados a editar: ");
                     ProductSet productToUpdate = stock.findProductByIdentificationNumber();
                     productToUpdate.updateProduct();
                     break;
-                case 5:
+                case DELETE_PRODUCT:
                     System.out.print("identificador do produto a ser removido: ");
                     ProductSet productToRemove = stock.findProductByIdentificationNumber();
                     stock.deleteProduct(productToRemove);
                     break;
-                case 6:
+                case LIST_PRODUCTS:
                     stock.listProducts();
                     break;
-                case 7:
+                case EXIT:
                     System.out.println("até mais");
                     return;
                 default:
