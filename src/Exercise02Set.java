@@ -33,7 +33,7 @@ public class Exercise02Set {
                     System.out.println("Estoque renomeado com sucesso.");
                     break;
                 case 2:
-                    ProductSet productToAdd = ProductSet.buildProductFromUserInput();
+                    ProductSet productToAdd = new ProductSet();
                     stock.addProduct(productToAdd);
                     break;
                 case 3:
@@ -123,37 +123,28 @@ class ProductSet {
     private final int identificationNumber;
     private static int identificationNumberCounter;
 
-    ProductSet(String name, String department, String type, double quantityInStock, String brand) {
-        this.name = name;
-        this.department = department;
-        this.type = type;
-        this.quantityInStock = quantityInStock;
-        this.brand = brand;
-        this.identificationNumber = identificationNumberCounter;
-
-        identificationNumberCounter++;
-    }
-
-    static ProductSet buildProductFromUserInput() {
+    ProductSet() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("nome: ");
-        String name = scanner.nextLine();
+        this.name = scanner.nextLine();
 
         System.out.print("seção: ");
-        String department = scanner.nextLine();
+        this.department = scanner.nextLine();
 
         System.out.print("tipo: ");
-        String type = scanner.nextLine();
+        this.type = scanner.nextLine();
 
         System.out.print("quantidade em estoque: ");
-        double quantityInStock = scanner.nextDouble();
+        this.quantityInStock = scanner.nextDouble();
         scanner.nextLine();
 
         System.out.print("marca: ");
-        String brand = scanner.nextLine();
+        this.brand = scanner.nextLine();
 
-        return new ProductSet(name, department, type, quantityInStock, brand);
+        this.identificationNumber = identificationNumberCounter;
+
+        identificationNumberCounter++;
     }
 
     int getIdentificationNumber() {
