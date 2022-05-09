@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class Exercise02 {
+public class Exercise02List {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -36,13 +36,13 @@ public class Exercise02 {
                     Product productToAdd = Product.buildProductFromUserInput();
                     Product product = stock.findProductWithSameNameAndBrandAlreadyPresent(productToAdd);
 
-                    if (product != null) {
-                        product.addQuantitiesInStock(productToAdd);
+                    if (product == null) {
+                        stock.addProduct(productToAdd);
 
                         break;
                     }
 
-                    stock.addProduct(productToAdd);
+                    product.addQuantitiesInStock(productToAdd);
                     break;
                 case 3:
                     System.out.print("identificador do produto com dados a exibir: ");
