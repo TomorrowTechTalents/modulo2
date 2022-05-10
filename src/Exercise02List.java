@@ -52,7 +52,18 @@ public class Exercise02List {
                 case 4:
                     System.out.print("identificador do produto com dados a editar: ");
                     Product productToUpdate = stock.findProductByIdentificationNumber();
+                    stock.deleteProduct(productToUpdate);
                     productToUpdate.updateProduct();
+                    product = stock.findProductWithSameNameAndBrandAlreadyPresent(productToUpdate);
+
+                    if (product == null) {
+                        stock.addProduct(productToUpdate);
+
+                        break;
+                    }
+
+
+                    product.addQuantitiesInStock(productToUpdate);
                     break;
                 case 5:
                     System.out.print("identificador do produto a ser removido: ");

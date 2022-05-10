@@ -62,7 +62,9 @@ public class Exercise02Set {
                 case UPDATE_PRODUCT:
                     System.out.print("identificador do produto com dados a editar: ");
                     ProductSet productToUpdate = stock.findProductByIdentificationNumber();
+                    stock.deleteProduct(productToUpdate);
                     productToUpdate.updateProduct();
+                    stock.addProduct(productToUpdate);
                     break;
                 case DELETE_PRODUCT:
                     System.out.print("identificador do produto a ser removido: ");
