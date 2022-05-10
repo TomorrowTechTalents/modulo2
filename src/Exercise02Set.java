@@ -3,13 +3,24 @@ import java.util.Scanner;
 import java.util.LinkedHashSet;
 
 enum Options {
-    RENAME_STOCK,
-    REGISTER_PRODUCT,
-    CHECK_PRODUCT,
-    UPDATE_PRODUCT,
-    DELETE_PRODUCT,
-    LIST_PRODUCTS,
-    EXIT
+    RENAME_STOCK("renomear o estoque"),
+    REGISTER_PRODUCT("cadastrar novo produto"),
+    CHECK_PRODUCT("ver detalhes de um produto"),
+    UPDATE_PRODUCT("editar dados de um produto"),
+    DELETE_PRODUCT("remover produto"),
+    LIST_PRODUCTS("listar produtos"),
+    EXIT("sair");
+
+    private final String string;
+
+    Options(String string) {
+        this.string = string;
+    }
+
+    @Override
+    public String toString() {
+        return this.ordinal() + 1 + " - " + this.string;
+    }
 }
 
 public class Exercise02Set {
@@ -25,13 +36,10 @@ public class Exercise02Set {
         while (true) {
             System.out.println("** estoque " + stock.name + " **");
             System.out.println("escolha uma opção:");
-            System.out.println("1 - renomear o estoque");
-            System.out.println("2 - cadastrar novo produto");
-            System.out.println("3 - ver detalhes de um produto");
-            System.out.println("4 - editar dados de um produto");
-            System.out.println("5 - remover produto");
-            System.out.println("6 - listar produtos");
-            System.out.println("7 - sair");
+
+            for (Options option : Options.values()) {
+                System.out.println(option);
+            }
 
             Options option = Options.values()[scanner.nextByte() - 1];
             scanner.nextLine();
