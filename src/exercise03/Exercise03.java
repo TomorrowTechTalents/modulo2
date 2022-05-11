@@ -11,7 +11,7 @@ public class Exercise03 {
         while (true) {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("=========="); // ver se nao é melhor ficar ao final
+            System.out.println("==========");
             System.out.println("escolha uma opção:");
             System.out.println("1 - adicionar");
             System.out.println("2 - modificar");
@@ -46,7 +46,8 @@ public class Exercise03 {
                     System.out.print("CPF do aluno a ter média calculada: ");
                     String CPF = scanner.nextLine();
                     Student student = school.findStudentByCPF(CPF);
-                    student.getGradesAverage();
+                    float gradesAverage = student.getGradesAverage();
+                    System.out.println("média das notas do aluno de cpf " + CPF + ": " + gradesAverage);
                     break;
                 case 7:
                     System.out.println("até logo");
@@ -79,7 +80,6 @@ public class Exercise03 {
         Scanner scanner = new Scanner(System.in);
 
         int option = getDesiredRole();
-        // scanner.nextLine();
 
         switch (option) {
             case 1:
@@ -129,8 +129,6 @@ public class Exercise03 {
     }
 
     static void list() {
-        Scanner scanner = new Scanner(System.in);
-
         int option = getDesiredRole();
 
         switch (option) {
@@ -152,7 +150,6 @@ public class Exercise03 {
         Scanner scanner = new Scanner(System.in);
 
         int option = getDesiredRole();
-        // scanner.nextLine();
 
         switch (option) {
             case 1:
