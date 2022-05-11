@@ -21,7 +21,19 @@ class Student extends Person {
         System.out.print("turma: ");
         this.schoolClass = scanner.nextLine();
 
-        // this.grades = grades; // ver se funciona a contento
+        byte gradesCounter = 0;
+        while (true) {
+            gradesCounter++;
+
+            System.out.print("nota " + gradesCounter + ": ");
+            String grade = scanner.nextLine();
+
+            if (grade.isEmpty()) {
+                break;
+            }
+
+            this.grades.add(Float.valueOf(grade));
+        }
     }
 
     float getGradesAverage() {

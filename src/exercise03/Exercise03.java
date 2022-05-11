@@ -64,6 +64,7 @@ public class Exercise03 {
         printSubmenu();
 
         int option = scanner.nextInt();
+        scanner.nextLine();
 
         switch (option) {
             case 1:
