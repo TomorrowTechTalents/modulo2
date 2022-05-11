@@ -58,13 +58,7 @@ public class Exercise03 {
     }
 
     static void add() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("você deseja adicionar um: ");
-        printSubmenu();
-
-        int option = scanner.nextInt();
-        scanner.nextLine();
+        int option = getDesiredRole();
 
         switch (option) {
             case 1:
@@ -84,11 +78,8 @@ public class Exercise03 {
     static void update() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("você deseja modificar um: ");
-        printSubmenu();
-
-        int option = scanner.nextInt();
-        scanner.nextLine();
+        int option = getDesiredRole();
+        // scanner.nextLine();
 
         switch (option) {
             case 1:
@@ -114,11 +105,7 @@ public class Exercise03 {
     static void delete() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("você deseja deletar um: ");
-        printSubmenu();
-
-        int option = scanner.nextInt();
-        scanner.nextLine();
+        int option = getDesiredRole();
 
         switch (option) {
             case 1:
@@ -144,11 +131,7 @@ public class Exercise03 {
     static void list() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("você deseja listar a categoria: ");
-        printSubmenu();
-
-        int option = scanner.nextInt();
-        scanner.nextLine();
+        int option = getDesiredRole();
 
         switch (option) {
             case 1:
@@ -168,11 +151,8 @@ public class Exercise03 {
     static void check() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("você deseja exibir os dados de um: ");
-        printSubmenu();
-
-        int option = scanner.nextInt();
-        scanner.nextLine();
+        int option = getDesiredRole();
+        // scanner.nextLine();
 
         switch (option) {
             case 1:
@@ -195,9 +175,14 @@ public class Exercise03 {
         }
     }
 
-    static void printSubmenu() { // fazer metodo getDesiredRole ou algo assim com o scanner talvez
+    static int getDesiredRole() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("escolha uma categoria: ");
         System.out.println("1 - aluno");
         System.out.println("2 - funcionário");
         System.out.println("3 - professor");
+
+        return scanner.nextInt();
     }
 }
