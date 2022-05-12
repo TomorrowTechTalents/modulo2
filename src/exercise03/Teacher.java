@@ -27,8 +27,20 @@ class Teacher extends Employee{
         System.out.print("novo RG (o RG antigo é " + this.RG + "): ");
         this.RG = scanner.nextLine();
 
-//        System.out.print("novas turmas (as turmas antigas são " + this.classes + "): ");
-//        String schoolClass = scanner.nextLine();
+        System.out.print("novas turmas (as turmas antigas são " + this.classes + "): ");
+        byte classesCounter = 0;
+        while (true) {
+            classesCounter++;
+
+            System.out.print("turma " + classesCounter + ": ");
+            String schoolClass = scanner.nextLine();
+
+            if (schoolClass.isEmpty()) {
+                break;
+            }
+
+            this.classes.add(schoolClass);
+        }
 
         System.out.print("novo salário (o salário antigo é " + this.salary + "): ");
         this.salary = scanner.nextBigDecimal();
