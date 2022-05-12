@@ -44,9 +44,22 @@ class Teacher extends Employee{
 
         System.out.print("novo salário (o salário antigo é " + this.salary + "): ");
         this.salary = scanner.nextBigDecimal();
+        scanner.nextLine();
 
-//        System.out.print("novas disciplinas (as disciplinas antigas são " + this.disciplines + "): ");
-//        String discipline = scanner.nextLine();
+        System.out.print("novas disciplinas (as disciplinas antigas são " + this.disciplines + "): ");
+        byte disciplinesCounter = 0;
+        while (true) {
+            disciplinesCounter++;
+
+            System.out.print("disciplina " + disciplinesCounter + ": ");
+            String discipline = scanner.nextLine();
+
+            if (discipline.isEmpty()) {
+                break;
+            }
+
+            this.disciplines.add(discipline);
+        }
     }
 
     @Override
