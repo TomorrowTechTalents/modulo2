@@ -3,7 +3,6 @@ package exercise03;
 import java.util.ArrayList;
 import java.util.List;
 
-// depois ver se pode ser um enum
 class School {
     List<Teacher> teachers = new ArrayList<>();
     List<Student> students = new ArrayList<>();

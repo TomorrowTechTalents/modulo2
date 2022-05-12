@@ -9,24 +9,17 @@ class Employee extends Person {
     private Position position;
     BigDecimal salary;
 
-    Employee(Position position) {
-        super();
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("cargo: ");
-        this.position = position;
-
-        System.out.print("salário: ");
-        this.salary = scanner.nextBigDecimal();
-    }
-
     Employee() {
         super(); // mudar a ordem e fazer 1 constructor chamar o outro
 
         Scanner scanner = new Scanner(System.in);
-
+        System.out.print("salário: ");
         this.salary = scanner.nextBigDecimal();
+    }
+
+    Employee(Position position) {
+        this();
+        this.position = position;
     }
 
     void update() {
@@ -48,10 +41,9 @@ class Employee extends Person {
         this.salary = scanner.nextBigDecimal();
     }
 
-
     @Override
     public String toString() {
         return "Funcionário = {nome: " + this.name + ", CPF: " + this.CPF + ", RG: " + this.RG +
-                ", salário: " + this.salary + ", cargo: " + this.position + "}";
+                            ", salário: " + this.salary + ", cargo: " + this.position + "}";
     }
 }

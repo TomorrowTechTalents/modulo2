@@ -66,7 +66,10 @@ public class Exercise03 {
                 school.students.add(new Student());
                 break;
             case 2:
-                school.employees.add(new Employee());
+                System.out.print("cargo do funcionário: ");
+                Scanner scanner = new Scanner(System.in);
+                Position position = Position.valueOf(scanner.nextLine());
+                school.employees.add(new Employee(position));
                 break;
             case 3:
                 school.teachers.add(new Teacher());
