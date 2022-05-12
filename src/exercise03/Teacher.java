@@ -11,8 +11,36 @@ class Teacher extends Employee{
     // nao adicionei o field cargo por causa do enunciado
     Teacher() {
         super();
-        //this.classes = classes;
-        //this.disciplines = disciplines;
+
+        Scanner scanner = new Scanner(System.in);
+
+        byte classesCounter = 0;
+        while (true) {
+            classesCounter++;
+
+            System.out.print("turma " + classesCounter + ": ");
+            String schoolClass = scanner.nextLine();
+
+            if (schoolClass.isEmpty()) {
+                break;
+            }
+
+            this.classes.add(schoolClass);
+        }
+
+        byte disciplinesCounter = 0;
+        while (true) {
+            disciplinesCounter++;
+
+            System.out.print("disciplina " + disciplinesCounter + ": ");
+            String discipline = scanner.nextLine();
+
+            if (discipline.isEmpty()) {
+                break;
+            }
+
+            this.disciplines.add(discipline);
+        }
     }
 
     void update() {
