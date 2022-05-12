@@ -1,79 +1,82 @@
-import java.util.List;
-import java.util.Scanner;
-import java.util.ArrayList;
+package Exercise02;
 
-public class Exercise02List {
+import java.util.Set;
+import java.util.Scanner;
+import java.util.LinkedHashSet;
+
+enum Options {
+    RENAME_STOCK("renomear o estoque"),
+    REGISTER_PRODUCT("cadastrar novo produto"),
+    CHECK_PRODUCT("ver detalhes de um produto"),
+    UPDATE_PRODUCT("editar dados de um produto"),
+    DELETE_PRODUCT("remover produto"),
+    LIST_PRODUCTS("listar produtos"),
+    EXIT("sair");
+
+    private final String string;
+
+    Options(String string) {
+        this.string = string;
+    }
+
+    @Override
+    public String toString() {
+        return this.ordinal() + 1 + " - " + this.string;
+    }
+}
+
+public class Exercise02Set {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("cadastre um estoque");
         System.out.print("nome: ");
         String stockName = scanner.nextLine();
-        Stock stock = new Stock(stockName);
+        StockSet stock = new StockSet(stockName);
         System.out.println();
 
         while (true) {
             System.out.println("** estoque " + stock.name + " **");
             System.out.println("escolha uma opção:");
-            System.out.println("1 - renomear o estoque");
-            System.out.println("2 - cadastrar novo produto");
-            System.out.println("3 - ver detalhes de um produto");
-            System.out.println("4 - editar dados de um produto");
-            System.out.println("5 - remover produto");
-            System.out.println("6 - listar produtos");
-            System.out.println("7 - sair");
 
-            int option = scanner.nextInt();
+            for (Options option : Options.values()) {
+                System.out.println(option);
+            }
+
+            Options option = Options.values()[scanner.nextByte() - 1];
             scanner.nextLine();
 
             switch (option) {
-                case 1:
+                case RENAME_STOCK:
                     System.out.print("novo nome: ");
                     stock.name = scanner.nextLine();
                     System.out.println("Estoque renomeado com sucesso.");
                     break;
-                case 2:
-                    Product productToAdd = Product.buildProductFromUserInput();
-                    Product product = stock.findProductWithSameNameAndBrandAlreadyPresent(productToAdd);
-
-                    if (product == null) {
-                        stock.addProduct(productToAdd);
-
-                        break;
-                    }
-
-                    product.addQuantitiesInStock(productToAdd);
+                case REGISTER_PRODUCT:
+                    ProductSet productToAdd = new ProductSet();
+                    stock.addProduct(productToAdd);
                     break;
-                case 3:
+                case CHECK_PRODUCT:
                     System.out.print("identificador do produto com dados a exibir: ");
-                    Product productToCheck = stock.findProductByIdentificationNumber();
+                    ProductSet productToCheck = stock.findProductByIdentificationNumber();
                     System.out.println(productToCheck);
                     break;
-                case 4:
+                case UPDATE_PRODUCT:
                     System.out.print("identificador do produto com dados a editar: ");
-                    Product productToUpdate = stock.findProductByIdentificationNumber();
+                    ProductSet productToUpdate = stock.findProductByIdentificationNumber();
                     stock.deleteProduct(productToUpdate);
                     productToUpdate.updateProduct();
-                    product = stock.findProductWithSameNameAndBrandAlreadyPresent(productToUpdate);
-
-                    if (product == null) {
-                        stock.addProduct(productToUpdate);
-
-                        break;
-                    }
-
-
-                    product.addQuantitiesInStock(productToUpdate);
+                    stock.addProduct(productToUpdate);
                     break;
-                case 5:
+                case DELETE_PRODUCT:
                     System.out.print("identificador do produto a ser removido: ");
-                    Product productToRemove = stock.findProductByIdentificationNumber();
+                    ProductSet productToRemove = stock.findProductByIdentificationNumber();
                     stock.deleteProduct(productToRemove);
                     break;
-                case 6:
+                case LIST_PRODUCTS:
                     stock.listProducts();
                     break;
-                case 7:
+                case EXIT:
                     System.out.println("até mais");
                     return;
                 default:
@@ -85,39 +88,29 @@ public class Exercise02List {
     }
 }
 
-class Stock {
+class StockSet {
     public String name;
-    private List<Product> products = new ArrayList<>();
-    private int identificationNumber;
+    private final Set<ProductSet> products = new LinkedHashSet<>();
     private static int identificationNumberCounter;
 
-    Stock(String name) {
+    StockSet(String name) {
         this.name = name;
-        this.identificationNumber = identificationNumberCounter;
+
+        int identificationNumber = identificationNumberCounter;
 
         identificationNumberCounter++;
     }
 
-    Product findProductWithSameNameAndBrandAlreadyPresent(Product newProduct) {
-        for (Product product : this.products) {
-            if (product.haveSameNameAndBrand(newProduct)) {
-                return product;
-            }
-        }
-
-        return null;
-    }
-
-    void addProduct(Product newProduct) {
+    void addProduct(ProductSet newProduct) {
         this.products.add(newProduct);
     }
 
-    Product findProductByIdentificationNumber() {
+    ProductSet findProductByIdentificationNumber() {
         Scanner scanner = new Scanner(System.in);
 
         int productIdentificationNumber = scanner.nextInt();
 
-        for (Product product : this.products) {
+        for (ProductSet product : this.products) {
             if (product.getIdentificationNumber() == productIdentificationNumber) {
                 return product;
             }
@@ -126,8 +119,8 @@ class Stock {
         throw new IllegalArgumentException("produto não encontrado");
     }
 
-    void deleteProduct(Product productToRemove) {
-        for (Product product : this.products) {
+    void deleteProduct(ProductSet productToRemove) {
+        for (ProductSet product : this.products) {
             if (product == productToRemove) { // equals()? Object.equals()?
                 this.products.remove(product);
 
@@ -137,54 +130,43 @@ class Stock {
     }
 
     void listProducts() {
-        for (Product product : this.products) {
+        for (ProductSet product : this.products) {
             System.out.println(product);
         }
     }
 }
 
-class Product {
+class ProductSet {
     private String name;
     private String department;
     private String type;
     private double quantityInStock;
     private String brand;
-    private int identificationNumber;
+    private final int identificationNumber;
     private static int identificationNumberCounter;
 
-    Product(String name, String department, String type, double quantityInStock, String brand) {
-        this.name = name;
-        this.department = department;
-        this.type = type;
-        this.quantityInStock = quantityInStock;
-        this.brand = brand;
-        this.identificationNumber = identificationNumberCounter;
-
-        identificationNumberCounter++;
-    }
-
-    static Product buildProductFromUserInput() {
+    ProductSet() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("nome: ");
-        String name = scanner.nextLine();
+        this.name = scanner.nextLine();
 
         System.out.print("seção: ");
-        String department = scanner.nextLine();
+        this.department = scanner.nextLine();
 
         System.out.print("tipo: ");
-        String type = scanner.nextLine();
+        this.type = scanner.nextLine();
 
         System.out.print("quantidade em estoque: ");
-        double quantityInStock = scanner.nextDouble();
+        this.quantityInStock = scanner.nextDouble();
         scanner.nextLine();
 
         System.out.print("marca: ");
-        String brand = scanner.nextLine();
+        this.brand = scanner.nextLine();
 
-        Product product = new Product(name, department, type, quantityInStock, brand);
+        this.identificationNumber = identificationNumberCounter;
 
-        return product;
+        identificationNumberCounter++;
     }
 
     int getIdentificationNumber() {
@@ -211,12 +193,28 @@ class Product {
         this.brand = scanner.nextLine();
     }
 
-    boolean haveSameNameAndBrand(Product product) {
-        return this.name.equals(product.name) && this.brand.equals(product.brand);
+    void addQuantitiesInStock(ProductSet product) {
+        this.quantityInStock += product.quantityInStock;
     }
 
-    void addQuantitiesInStock(Product product) {
-        this.quantityInStock += product.quantityInStock;
+    @Override
+    public boolean equals(Object obj) {
+        if (this.getClass() == obj.getClass()) {
+            ProductSet product = (ProductSet) obj;
+
+            if (this.name.equals(product.name) && this.brand.equals(product.brand)) {
+                product.addQuantitiesInStock(this);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode() * this.brand.hashCode();
     }
 
     @Override

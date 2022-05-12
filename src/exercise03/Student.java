@@ -70,7 +70,7 @@ class Student extends Person {
     }
 
     @Override
-    public String toString() { // herdar string da superclasse
+    public String toString() { // herdar string da superclasse, usar polimorfismo na criacao das variaveis
         return "Aluno = {nome: " + this.name + ", CPF: " + this.CPF + ", RG: " + this.RG +
                 ", idade: " + this.age + ", turma: " + this.schoolClass +
                 ", notas por disciplina: " + this.grades + "}";

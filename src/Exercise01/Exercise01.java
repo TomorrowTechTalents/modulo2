@@ -1,3 +1,5 @@
+package Exercise01;
+
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
