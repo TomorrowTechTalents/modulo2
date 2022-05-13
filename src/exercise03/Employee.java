@@ -1,8 +1,6 @@
 package exercise03;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 class Employee extends Person {
@@ -10,16 +8,18 @@ class Employee extends Person {
     BigDecimal salary;
 
     Employee() {
-        super(); // mudar a ordem e fazer 1 constructor chamar o outro
+        super();
 
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("salário: ");
         this.salary = scanner.nextBigDecimal();
-    }
+        scanner.nextLine();
 
-    Employee(Position position) {
-        this();
-        this.position = position;
+        if (this.getClass() == Employee.class) {
+            System.out.print("cargo: ");
+            this.position = Position.valueOf(scanner.nextLine());
+        }
     }
 
     void update() {

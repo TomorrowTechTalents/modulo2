@@ -66,10 +66,7 @@ public class Exercise03 {
                 school.students.add(new Student());
                 break;
             case 2:
-                System.out.print("cargo do funcionário: ");
-                Scanner scanner = new Scanner(System.in);
-                Position position = Position.valueOf(scanner.nextLine());
-                school.employees.add(new Employee(position));
+                school.employees.add(new Employee());
                 break;
             case 3:
                 school.teachers.add(new Teacher());
@@ -175,7 +172,7 @@ public class Exercise03 {
         }
     }
 
-    static int getDesiredRole() {
+    static int getDesiredRole() { // enum para roles hein
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("escolha uma categoria: ");
