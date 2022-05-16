@@ -148,19 +148,23 @@ class Exercise03 {
         System.out.print("CPF do " + desiredRole.string + ": ");
         String CPF = scanner.nextLine();
 
+        Person person;
+
         switch (desiredRole) {
             case STUDENT:
-                school.checkPerson(CPF, school.getStudents());
+                person = school.findPersonByCPF(CPF, school.getStudents());
                 break;
             case EMPLOYEE:
-                school.checkPerson(CPF, school.getEmployees());
+                person = school.findPersonByCPF(CPF, school.getEmployees());
                 break;
             case TEACHER:
-                school.checkPerson(CPF, school.getTeachers());
+                person = school.findPersonByCPF(CPF, school.getTeachers());
                 break;
             default:
-                throw new RuntimeException("opção inválida; escolha para exibir detalhes de aluno, funcionário, ou professor");
+                throw new RuntimeException("opção inválida; escolha entre aluno, funcionário, professor");
         }
+
+        System.out.println(person);
     }
 
     static Role getDesiredRole() {

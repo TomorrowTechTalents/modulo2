@@ -2,7 +2,7 @@ package exercise03;
 
 import java.util.Scanner;
 
-abstract class Person { //lembrar de trazer algumas coisas tipo do update pra essa classe
+abstract class Person {
     String name;
     String CPF;
     String RG;

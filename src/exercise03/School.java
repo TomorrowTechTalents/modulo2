@@ -23,6 +23,7 @@ class School {
 
         personToUpdate.update();
     }
+
     void deletePerson(String CPF, List<Person> list) {
         Person person = findPersonByCPF(CPF, list);
 
@@ -32,16 +33,6 @@ class School {
     void listPeople(List<Person> list) {
         for (Person person : list) {
             System.out.println(person);
-        }
-    }
-
-    void checkPerson(String CPF, List<Person> list) {
-        for (Person person : list) {
-            if (person.CPF.equals(CPF)) {
-                System.out.println(person);
-
-                break;
-            }
         }
     }
 
