@@ -16,6 +16,8 @@ public class Exercise04 {
 
             CharacterType nextCharacterType = CharacterType.values()[nextCharacterTypeIndex];
 
+            System.out.println(nextCharacterType.string);
+
             switch (nextCharacterType) {
                 case GENERIC:
                     enemy = new Generic();
@@ -37,20 +39,22 @@ public class Exercise04 {
 
             switch (action) {
                 case 0:
+                    System.out.println("o inimigo atacou");
                     enemy.attack();
                     break;
                 case 1:
+                    System.out.println("o inimigo recebeu um ataque");
                     AttackType attackType = AttackType.values()[random.nextInt(NUMBER_OF_ATTACK_TYPES)];
                     enemy.takeDamage(attackType, random.nextInt());
                     break;
                 case 2:
+                    System.out.println("você interagiu com o inimigo");
                     enemy.interact();
                     break;
                 default:
                     throw new IllegalArgumentException("ação inválida");
             }
 
-            System.out.println("==========");
             System.out.print("nova rodada? ");
             Scanner scanner = new Scanner(System.in);
             char option = scanner.next().charAt(0);
@@ -58,6 +62,8 @@ public class Exercise04 {
             if (option == 'n') {
                 break;
             }
+
+            System.out.println("==========");
         }
     }
 }
