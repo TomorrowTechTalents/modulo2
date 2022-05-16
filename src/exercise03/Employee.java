@@ -23,22 +23,18 @@ class Employee extends Person {
     }
 
     void update() {
+        super.update();
+
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("novo nome (o nome antigo é " + this.name + "): ");
-        this.name = scanner.nextLine();
-
-        System.out.print("novo CPF (o CPF antigo é " + this.CPF + "): ");
-        this.CPF = scanner.nextLine();
-
-        System.out.print("novo RG (o RG antigo é " + this.RG + "): ");
-        this.RG = scanner.nextLine();
-
-        System.out.print("novo cargo (o cargo antigo é " + this.position + "): ");
-        this.position = Position.valueOf(scanner.nextLine());
 
         System.out.print("novo salário (o salário antigo é " + this.salary + "): ");
         this.salary = scanner.nextBigDecimal();
+        scanner.nextLine();
+
+        if (this.getClass() == Employee.class) {
+            System.out.print("novo cargo (o cargo antigo é " + this.position + "): ");
+            this.position = Position.valueOf(scanner.nextLine());
+        }
     }
 
     @Override

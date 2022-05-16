@@ -2,7 +2,7 @@ package exercise03;
 
 import java.util.Scanner;
 
-public class Exercise03 {
+class Exercise03 {
     static School school = new School();
 
     public static void main(String[] args) {
@@ -45,7 +45,7 @@ public class Exercise03 {
                 case 6:
                     System.out.print("CPF do aluno a ter média calculada: ");
                     String CPF = scanner.nextLine();
-                    Student student = school.findStudentByCPF(CPF);
+                    Student student = (Student) school.findPersonByCPF(CPF, school.getStudents());
                     float gradesAverage = student.getGradesAverage();
                     System.out.println("média das notas do aluno de cpf " + CPF + ": " + gradesAverage);
                     break;
@@ -59,17 +59,17 @@ public class Exercise03 {
     }
 
     static void add() {
-        int option = getDesiredRole();
+        Role option = getDesiredRole();
 
         switch (option) {
-            case 1:
-                school.students.add(new Student());
+            case STUDENT:
+                school.getStudents().add(new Student());
                 break;
-            case 2:
-                school.employees.add(new Employee());
+            case EMPLOYEE:
+                school.getEmployees().add(new Employee());
                 break;
-            case 3:
-                school.teachers.add(new Teacher());
+            case TEACHER:
+                school.getTeachers().add(new Teacher());
                 break;
             default:
                 throw new RuntimeException("opção inválida; escolha entre aluno, funcionário, professor");
@@ -79,23 +79,23 @@ public class Exercise03 {
     static void update() {
         Scanner scanner = new Scanner(System.in);
 
-        int option = getDesiredRole();
+        Role option = getDesiredRole();
 
         switch (option) {
-            case 1:
+            case STUDENT:
                 System.out.print("CPF do aluno: ");
                 String studentCPF = scanner.nextLine();
-                school.updateStudent(studentCPF);
+                school.updatePerson(studentCPF, school.getStudents());
                 break;
-            case 2:
+            case EMPLOYEE:
                 System.out.print("CPF do funcionário: ");
                 String employeeCPF = scanner.nextLine();
-                school.updateEmployee(employeeCPF);
+                school.updatePerson(employeeCPF, school.getEmployees());
                 break;
-            case 3:
+            case TEACHER:
                 System.out.print("CPF do professor: ");
                 String teacherCPF = scanner.nextLine();
-                school.updateTeacher(teacherCPF);
+                school.updatePerson(teacherCPF, school.getTeachers());
                 break;
             default:
                 throw new RuntimeException("opção inválida; escolha entre aluno, funcionário, professor");
@@ -105,23 +105,23 @@ public class Exercise03 {
     static void delete() {
         Scanner scanner = new Scanner(System.in);
 
-        int option = getDesiredRole();
+        Role option = getDesiredRole();
 
         switch (option) {
-            case 1:
+            case STUDENT:
                 System.out.print("CPF do aluno a ser deletado: ");
                 String studentCPF = scanner.nextLine();
-                school.deleteStudent(studentCPF);
+                school.deletePerson(studentCPF, school.getStudents());
                 break;
-            case 2:
+            case EMPLOYEE:
                 System.out.print("CPF do funcionário a ser deletado: ");
                 String employeeCPF = scanner.nextLine();
-                school.deleteEmployee(employeeCPF);
+                school.deletePerson(employeeCPF, school.getEmployees());
                 break;
-            case 3:
+            case TEACHER:
                 System.out.print("CPF do professor a ser deletado: ");
                 String teacherCPF = scanner.nextLine();
-                school.deleteTeacher(teacherCPF);
+                school.deletePerson(teacherCPF, school.getTeachers());
                 break;
             default:
                 throw new RuntimeException("opção inválida; escolha entre aluno, funcionário, professor");
@@ -129,17 +129,17 @@ public class Exercise03 {
     }
 
     static void list() {
-        int option = getDesiredRole();
+        Role option = getDesiredRole();
 
         switch (option) {
-            case 1:
-                school.listStudent();
+            case STUDENT:
+                school.listPeople(school.getStudents());
                 break;
-            case 2:
-                school.listEmployee();
+            case EMPLOYEE:
+                school.listPeople(school.getEmployees());
                 break;
-            case 3:
-                school.listTeacher();
+            case TEACHER:
+                school.listPeople(school.getTeachers());
                 break;
             default:
                 throw new RuntimeException("opção inválida; escolha para listar alunos, funcionários, ou professores");
@@ -149,37 +149,39 @@ public class Exercise03 {
     static void check() {
         Scanner scanner = new Scanner(System.in);
 
-        int option = getDesiredRole();
+        Role option = getDesiredRole();
 
         switch (option) {
-            case 1:
-                System.out.print("CPF do aluno:");
+            case STUDENT:
+                System.out.print("CPF do aluno: ");
                 String studentCPF = scanner.nextLine();
-                school.checkStudent(studentCPF);
+                school.checkPerson(studentCPF, school.getStudents());
                 break;
-            case 2:
-                System.out.print("CPF do funcionário:");
+            case EMPLOYEE:
+                System.out.print("CPF do funcionário: ");
                 String employeeCPF = scanner.nextLine();
-                school.checkEmployee(employeeCPF);
+                school.checkPerson(employeeCPF, school.getEmployees());
                 break;
-            case 3:
-                System.out.print("CPF do professor:");
+            case TEACHER:
+                System.out.print("CPF do professor: ");
                 String teacherCPF = scanner.nextLine();
-                school.checkTeacher(teacherCPF);
+                school.checkPerson(teacherCPF, school.getTeachers());
                 break;
             default:
                 throw new RuntimeException("opção inválida; escolha para exibir detalhes de aluno, funcionário, ou professor");
         }
     }
 
-    static int getDesiredRole() { // enum para roles hein
+    static Role getDesiredRole() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("escolha uma categoria: ");
-        System.out.println("1 - aluno");
-        System.out.println("2 - funcionário");
-        System.out.println("3 - professor");
 
-        return scanner.nextInt();
+        for (Role role : Role.values()) {
+            System.out.println(role.ordinal() + 1 + " - " + role.string);
+        }
+
+        int option = scanner.nextInt();
+        return Role.values()[option - 1];
     }
 }

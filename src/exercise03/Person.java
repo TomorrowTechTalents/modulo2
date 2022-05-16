@@ -2,7 +2,7 @@ package exercise03;
 
 import java.util.Scanner;
 
-class Person { //lembrar de trazer algumas coisas tipo do update pra essa classe
+abstract class Person { //lembrar de trazer algumas coisas tipo do update pra essa classe
     String name;
     String CPF;
     String RG;
@@ -17,6 +17,19 @@ class Person { //lembrar de trazer algumas coisas tipo do update pra essa classe
         this.CPF = scanner.nextLine();
 
         System.out.print("RG: ");
+        this.RG = scanner.nextLine();
+    }
+
+    void update() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("novo nome (o nome antigo é " + this.name + "): ");
+        this.name = scanner.nextLine();
+
+        System.out.print("novo CPF (o CPF antigo é " + this.CPF + "): ");
+        this.CPF = scanner.nextLine();
+
+        System.out.print("novo RG (o RG antigo é " + this.RG + "): ");
         this.RG = scanner.nextLine();
     }
 }

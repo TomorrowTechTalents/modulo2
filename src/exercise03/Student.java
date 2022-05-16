@@ -47,16 +47,9 @@ class Student extends Person {
     }
 
     void update() {
+        super.update();
+
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("novo nome (o nome antigo é " + this.name + "): ");
-        this.name = scanner.nextLine();
-
-        System.out.print("novo CPF (o CPF antigo é " + this.CPF + "): ");
-        this.CPF = scanner.nextLine();
-
-        System.out.print("novo RG (o RG antigo é " + this.RG + "): ");
-        this.RG = scanner.nextLine();
 
         System.out.print("nova idade (a idade antiga é " + this.age + "): ");
         this.age = scanner.nextInt();
@@ -65,14 +58,26 @@ class Student extends Person {
         System.out.print("nova turma (a turma antiga é " + this.schoolClass + "): ");
         this.schoolClass = scanner.nextLine();
 
-//        System.out.print("novas notas (as notas antigas são " + this.grades + "): ");
-//        float grade = scanner.nextFloat();
+        System.out.println("novas notas (a(s) nota(s) antiga(s) é(são) " + this.grades + "): ");
+        this.grades.clear();
+        byte gradesCounter = 0;
+        while (true) {
+            gradesCounter++;
+
+            System.out.print("nota " + gradesCounter + ": ");
+            String grade = scanner.nextLine();
+
+            if (grade.isEmpty()) {
+                break;
+            }
+
+            this.grades.add(Float.valueOf(grade));
+        }
     }
 
     @Override
-    public String toString() { // herdar string da superclasse, usar polimorfismo na criacao das variaveis
-        return "Aluno = {nome: " + this.name + ", CPF: " + this.CPF + ", RG: " + this.RG +
-                ", idade: " + this.age + ", turma: " + this.schoolClass +
-                ", notas por disciplina: " + this.grades + "}";
+    public String toString() {
+        return "Aluno = {nome: " + this.name + ", CPF: " + this.CPF + ", RG: " + this.RG + ", idade: " + this.age +
+                      ", turma: " + this.schoolClass + ", notas por disciplina: " + this.grades + "}";
     }
 }

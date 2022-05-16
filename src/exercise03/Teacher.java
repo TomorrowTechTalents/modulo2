@@ -44,18 +44,12 @@ class Teacher extends Employee{
     }
 
     void update() {
+        super.update();
+
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("novo nome (o nome antigo é " + this.name + "): ");
-        this.name = scanner.nextLine();
-
-        System.out.print("novo CPF (o CPF antigo é " + this.CPF + "): ");
-        this.CPF = scanner.nextLine();
-
-        System.out.print("novo RG (o RG antigo é " + this.RG + "): ");
-        this.RG = scanner.nextLine();
-
-        System.out.print("novas turmas (as turmas antigas são " + this.classes + "): ");
+        System.out.println("novas turmas (a(s) turma(s) antiga(s) é(são) " + this.classes + "): ");
+        this.classes.clear();
         byte classesCounter = 0;
         while (true) {
             classesCounter++;
@@ -70,11 +64,8 @@ class Teacher extends Employee{
             this.classes.add(schoolClass);
         }
 
-        System.out.print("novo salário (o salário antigo é " + this.salary + "): ");
-        this.salary = scanner.nextBigDecimal();
-        scanner.nextLine();
-
-        System.out.print("novas disciplinas (as disciplinas antigas são " + this.disciplines + "): ");
+        System.out.println("novas disciplinas (a(s) disciplina(s) antiga(s) é(são) " + this.disciplines + "): ");
+        this.disciplines.clear();
         byte disciplinesCounter = 0;
         while (true) {
             disciplinesCounter++;
@@ -92,8 +83,7 @@ class Teacher extends Employee{
 
     @Override
     public String toString() {
-        return "Professor = {nome: " + this.name + ", CPF: " + this.CPF + ", RG: " + this.RG +
-                ", salário: " + this.salary + ", turmas: " + this.classes +
-                ", disciplinas: " + this.disciplines + "}";
+        return "Professor = {nome: " + this.name + ", CPF: " + this.CPF + ", RG: " + this.RG + ", salário: " +
+                             this.salary + ", turmas: " + this.classes + ", disciplinas: " + this.disciplines + "}";
     }
 }

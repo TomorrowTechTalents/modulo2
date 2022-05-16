@@ -3,122 +3,67 @@ package exercise03;
 import java.util.ArrayList;
 import java.util.List;
 
+enum Role {
+    STUDENT("aluno"), EMPLOYEE("funcionário"), TEACHER("professor");
+
+    final String string;
+
+    Role(String string) {
+        this.string = string;
+    }
+}
+
 class School {
-    List<Teacher> teachers = new ArrayList<>();
-    List<Student> students = new ArrayList<>();
-    List<Employee> employees = new ArrayList<>();
+    private final List<Person> teachers = new ArrayList<>();
+    private final List<Person> students = new ArrayList<>();
+    private final List<Person> employees = new ArrayList<>();
 
-    void updateStudent(String CPF) {
-        Student studentToUpdate = findStudentByCPF(CPF);
+    void updatePerson(String CPF, List<Person> list) {
+        Person personToUpdate = findPersonByCPF(CPF, list);
 
-        studentToUpdate.update();
+        personToUpdate.update();
+    }
+    void deletePerson(String CPF, List<Person> list) {
+        Person person = findPersonByCPF(CPF, list);
+
+        list.remove(person);
     }
 
-    void updateEmployee(String CPF) {
-        Employee employeeToUpdate = findEmployeeByCPF(CPF);
-
-        employeeToUpdate.update();
-    }
-
-    void updateTeacher(String CPF) {
-        Teacher teacherToUpdate = findTeacherByCPF(CPF);
-
-        teacherToUpdate.update();
-    }
-
-    Student findStudentByCPF(String CPF) {
-        for (Student student : this.students) {
-            if (student.CPF.equals(CPF)) {
-                return student;
-            }
-        }
-
-        return null;
-    }
-
-    Employee findEmployeeByCPF(String CPF) {
-        for (Employee employee : this.employees) {
-            if (employee.CPF.equals(CPF)) {
-                return employee;
-            }
-        }
-
-        return null;
-    }
-
-    Teacher findTeacherByCPF(String CPF) {
-        for (Teacher teacher : this.teachers) {
-            if (teacher.CPF.equals(CPF)) {
-                return teacher;
-            }
-        }
-
-        return null;
-    }
-
-    void deleteStudent(String CPF) {
-        Student student = findStudentByCPF(CPF);
-
-        this.students.remove(student);
-    }
-
-    void deleteEmployee(String CPF) {
-        Employee employee = findEmployeeByCPF(CPF);
-
-        this.employees.remove(employee);
-    }
-
-    void deleteTeacher(String CPF) {
-        Teacher teacher = findTeacherByCPF(CPF);
-
-        this.teachers.remove(teacher);
-    }
-
-    void listStudent() {
-        for (Student student : this.students) {
-            System.out.println(student);
+    void listPeople(List<Person> list) {
+        for (Person person : list) {
+            System.out.println(person);
         }
     }
 
-    void listEmployee() {
-        for (Employee employee : this.employees) {
-            System.out.println(employee);
-        }
-    }
-
-    void listTeacher() {
-        for (Teacher teacher : this.teachers) {
-            System.out.println(teacher);
-        }
-    }
-
-    void checkStudent(String CPF) {
-        for (Student student : this.students) {
-            if (student.CPF.equals(CPF)) {
-                System.out.println(student);
+    void checkPerson(String CPF, List<Person> list) {
+        for (Person person : list) {
+            if (person.CPF.equals(CPF)) {
+                System.out.println(person);
 
                 break;
             }
         }
     }
 
-    void checkEmployee(String CPF) {
-        for (Employee employee : this.employees) {
-            if (employee.CPF.equals(CPF)) {
-                System.out.println(employee);
-
-                break;
+    Person findPersonByCPF(String CPF, List<Person> list) {
+        for (Person person : list) {
+            if (person.CPF.equals(CPF)) {
+                return person;
             }
         }
+
+        return null;
     }
 
-    void checkTeacher(String CPF) {
-        for (Teacher teacher : this.teachers) {
-            if (teacher.CPF.equals(CPF)) {
-                System.out.println(teacher);
+    public List<Person> getStudents() {
+        return this.students;
+    }
 
-                break;
-            }
-        }
+    public List<Person> getEmployees() {
+        return this.employees;
+    }
+
+    public List<Person> getTeachers() {
+        return this.teachers;
     }
 }
