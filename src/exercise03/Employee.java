@@ -22,6 +22,7 @@ class Employee extends Person {
         }
     }
 
+    @Override
     void update() {
         super.update();
 

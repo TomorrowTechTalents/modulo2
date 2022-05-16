@@ -46,6 +46,7 @@ class Student extends Person {
         return sum / this.grades.size();
     }
 
+    @Override
     void update() {
         super.update();
 
