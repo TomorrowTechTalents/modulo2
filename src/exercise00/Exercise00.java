@@ -1,4 +1,4 @@
-package Exercise00;// https://cdn.discordapp.com/attachments/954145870142640182/971547479684304926/exercicio-poo.png
+package exercise00;// https://cdn.discordapp.com/attachments/954145870142640182/971547479684304926/exercicio-poo.png
 
 import java.math.BigDecimal;
 
