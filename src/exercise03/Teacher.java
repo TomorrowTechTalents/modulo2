@@ -10,8 +10,6 @@ class Teacher extends Employee{
 
     // nao adicionei o field cargo por causa do enunciado
     Teacher() {
-        super();
-
         Scanner scanner = new Scanner(System.in);
 
         byte classesCounter = 0;

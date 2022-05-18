@@ -3,7 +3,7 @@ package exercise03;
 import java.util.Scanner;
 
 class Exercise03 {
-    static School school = new School();
+    private static final School school = new School();
 
     public static void main(String[] args) {
         System.out.println("Olá, este é o sistema da escola XPTO!");
@@ -58,7 +58,7 @@ class Exercise03 {
         }
     }
 
-    static void add() {
+    private static void add() {
         Role desiredRole = getDesiredRole();
 
         switch (desiredRole) {
@@ -76,7 +76,7 @@ class Exercise03 {
         }
     }
 
-    static void update() {
+    private static void update() {
         Scanner scanner = new Scanner(System.in);
 
         Role desiredRole = getDesiredRole();
@@ -99,7 +99,7 @@ class Exercise03 {
         }
     }
 
-    static void delete() {
+    private static void delete() {
         Scanner scanner = new Scanner(System.in);
 
         Role desiredRole = getDesiredRole();
@@ -122,7 +122,7 @@ class Exercise03 {
         }
     }
 
-    static void list() {
+    private static void list() {
         Role desiredRole = getDesiredRole();
 
         switch (desiredRole) {
@@ -140,7 +140,7 @@ class Exercise03 {
         }
     }
 
-    static void check() {
+    private static void check() {
         Scanner scanner = new Scanner(System.in);
 
         Role desiredRole = getDesiredRole();
@@ -167,7 +167,7 @@ class Exercise03 {
         System.out.println(person);
     }
 
-    static Role getDesiredRole() {
+    private static Role getDesiredRole() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("escolha uma categoria: ");

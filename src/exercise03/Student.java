@@ -10,8 +10,6 @@ class Student extends Person {
     private final List<Float> grades = new ArrayList<>();
 
     Student() {
-        super();
-
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("idade: ");

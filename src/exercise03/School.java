@@ -36,7 +36,7 @@ class School {
         }
     }
 
-    Person findPersonByCPF(String CPF, List<Person> list) {
+    Person findPersonByCPF(String CPF, List<Person> list) { // acho que era melhor receber o role e achar a lista aqui dentro do que ja receber a lista hein; talvez esse comentario seja para outro metodo
         for (Person person : list) {
             if (person.CPF.equals(CPF)) {
                 return person;
@@ -46,15 +46,15 @@ class School {
         return null;
     }
 
-    public List<Person> getStudents() {
+    List<Person> getStudents() {
         return this.students;
     }
 
-    public List<Person> getEmployees() {
+    List<Person> getEmployees() {
         return this.employees;
     }
 
-    public List<Person> getTeachers() {
+    List<Person> getTeachers() {
         return this.teachers;
     }
 }

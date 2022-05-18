@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 class Employee extends Person {
+    enum Position {
+        PROFESSOR
+    }
+
     private Position position;
     BigDecimal salary;
 
     Employee() {
-        super();
-
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("salário: ");

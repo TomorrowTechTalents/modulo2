@@ -1,15 +1,14 @@
 package exercise04;
 
-public abstract class Character {
-    void attack() {
-
+abstract class Character {
+    enum CharacterType {
+        GENERIC_ENEMY, VAMPIRE, SNAKE, GIANT
     }
 
-    void takeDamage(AttackType attackType, int damage) {
+    // todos os metodos poderiam ser estaticos...
+    abstract void attack();
 
-    }
+    abstract void takeDamage(AttackType attackType, int damage);
 
-    void interact() {
-
-    }
+    abstract void interact();
 }
