@@ -20,6 +20,8 @@ Outra possível definição em uma frase seria: a palavra "polimorfismo" refere-
 
 `Animal nomeDaVariavel = new Cachorro();`
 
+`Object nomeDaVariavel = new Cachorro();`
+
 ---
 
 4. Opção a, V.
