@@ -2,6 +2,7 @@ package exercise04;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Exercise04 {
     private static final Random random = new Random();
@@ -60,19 +61,24 @@ public class Exercise04 {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         while (true) {
             Enemy enemy = meetEnemy();
 
             Scanner scanner = new Scanner(System.in);
-            scanner.nextLine();
+
+            //scanner.nextLine();
+            System.out.println();
+            Thread.sleep(1000);
 
             takeAction(enemy);
 
-            System.out.print("nova rodada? ");
-            char option = scanner.next().charAt(0);
+            TimeUnit.SECONDS.sleep(1);
 
-            if (option == 'n') {
+            System.out.print("nova rodada? ");
+            String option = scanner.nextLine();
+
+            if (option.equals("n")) {
                 break;
             }
 
