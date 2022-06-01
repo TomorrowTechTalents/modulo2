@@ -1,6 +1,6 @@
 # Polimorfismo
 
-1. Uma possível forma de definir polimorfismo em uma frase é: polimorfismo é a existência de uma mesma interface para entidades de tipos diferentes.
+1. Uma possível forma de definir polimorfismo em uma frase é: polimorfismo é a existência de uma mesma interface para entidades de tipos diferentes[<sup>[referência]</sup>](https://www.stroustrup.com/glossary.html#Gpolymorphism).
 
 Outra possível definição em uma frase seria: a palavra "polimorfismo" refere-se a um conjunto de diferentes funcionalidades (os diferentes tipos de polimorfismo), que têm em comum a característica de que objetos de tipos diferentes se comportam de maneiras semelhantes.
 
